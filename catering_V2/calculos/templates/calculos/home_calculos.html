@@ -1,0 +1,13 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<h2>Bienvenido a la Aplicación de Catering</h2>
+<p>Administra tus recetas, ingredientes y catering de manera eficiente.</p>
+<ul>
+    <li><a href="{% url 'lista_recetas' %}">Gestionar Recetas</a></li>
+    <li><a href="{% url 'lista_ingredientes' %}">Gestionar Ingredientes</a></li>
+    <li><a href="{% url 'lista_caterings' %}">Gestionar Catering</a></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Lista de Compras{% endblock %}
+
+{% block content %}
+<h2 style="color: #2c3e50;">Lista de Compras para {{ catering.nombre }}</h2>
+<div class="responsive-table" style="margin-top: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #34495e; color: white;">
+                <th style="padding: 10px;">Ingrediente</th>
+                <th style="padding: 10px;">Cantidad Total</th>
+                <th style="padding: 10px;">Precio Unitario</th>
+                <th style="padding: 10px;">Costo Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ingrediente, cantidad in lista_compras.items %}
+            <tr style="background-color: {% cycle '#ecf0f1' '#bdc3c7' %};">
+                <td data-label="Ingrediente" style="padding: 10px;">{{ ingrediente.nombre }}</td>
+                <td data-label="Cantidad Total" style="padding: 10px;">{{ cantidad|floatformat:2 }}</td>
+                <td data-label="Precio Unitario" style="padding: 10px;">{{ ingrediente.precio|floatformat:2 }}</td>
+                <td data-label="Costo Total" style="padding: 10px;">{{ cantidad|floatformat:2|times:ingrediente.precio|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="{% url 'lista_caterings' %}" class="btn btn-primary" style="background-color: #3498db; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+    <i class="fas fa-arrow-left"></i> Volver a los Caterings
+</a>
+{% endblock %}

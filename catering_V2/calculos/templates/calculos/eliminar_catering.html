@@ -1,0 +1,11 @@
+{% extends 'calculos/base.html' %}
+
+{% block content %}
+<h1>Eliminar Catering</h1>
+<p>¿Estás seguro de que deseas eliminar el catering "{{ catering.nombre }}" para {{ catering.cantidad_personas }} personas?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'lista_caterings' %}">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Editar Ingrediente en Receta{% endblock %}
+
+{% block content %}
+<h2>Editar Ingrediente en Receta</h2>
+<p>Receta: {{ ingrediente_receta.receta.nombre }}</p>
+<p>Ingrediente: {{ ingrediente_receta.ingrediente.nombre }}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar Cambios</button>
+    <a href="{% url 'editar_receta' ingrediente_receta.receta.pk %}">Cancelar</a>
+</form>
+{% endblock %}

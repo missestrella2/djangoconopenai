@@ -1,0 +1,10 @@
+{% extends 'calculos/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>Calcular Catering</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ catering_form.as_p }}
+        <button type="submit">Calcular</button>
+    </form>
+{% endblock %}

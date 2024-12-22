@@ -1,0 +1,13 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Editar Ingrediente Principal{% endblock %}
+
+{% block content %}
+<h1>Editar Ingrediente Principal</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar Cambios</button>
+    <a href="{% url 'lista_ingredientes_principal' %}">Cancelar</a>
+</form>
+{% endblock %}

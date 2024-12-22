@@ -1,0 +1,12 @@
+{% extends 'calculos/base.html' %}
+
+{% block content %}
+<h1>Detalle del Ingrediente</h1>
+<td>
+    <a href="{% url 'detalle_ingrediente' ingrediente.id %}">Ver</a>
+    <a href="{% url 'editar_ingrediente' ingrediente.id %}">Editar</a>
+    <a href="{% url 'eliminar_ingrediente' ingrediente.id %}" onclick="return confirm('¿Está seguro de eliminar este ingrediente?');">Eliminar</a>
+</td>
+
+<a href="{% url 'lista_ingredientes' %}">Volver a la lista</a>
+{% endblock %}

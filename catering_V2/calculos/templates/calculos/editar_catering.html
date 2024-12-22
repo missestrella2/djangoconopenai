@@ -1,0 +1,40 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Editar Catering{% endblock %}
+
+{% block content %}
+<h1>Editar Catering: {{ catering.nombre }}</h1>
+<p><strong>Cantidad de Personas:</strong> {{ catering.cantidad_personas }}</p>
+
+<h2>Recetas Asociadas</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Receta</th>
+            <th>Porciones</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for receta in recetas %}
+        <tr>
+            <td>{{ receta.receta.nombre }}</td>
+            <td>{{ receta.porciones }}</td>
+            <td>
+                <a href="{% url 'editar_receta' receta.receta.id %}">Editar</a>
+                <a href="{% url 'eliminar_receta' receta.receta.id %}" onclick="return confirm('¿Estás seguro de eliminar esta receta del catering?');">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Agregar Receta</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Agregar Receta</button>
+</form>
+
+<a href="{% url 'lista_caterings' %}">Volver a la lista de Caterings</a>
+{% endblock %}

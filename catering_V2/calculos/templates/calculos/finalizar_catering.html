@@ -1,0 +1,43 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Lista de Compras{% endblock %}
+
+{% block content %}
+<h1>Lista de Compras para {{ catering.nombre }}</h1>
+<p><strong>Cantidad de Invitados:</strong> {{ cantidad_personas }}</p>
+<p><strong>Cantidad de Porciones Totales:</strong> {{ cantidad_porciones_totales }}</p>
+<p><strong>Costo Total:</strong> {{ costo_total|floatformat:2 }}</p>
+<p><strong>Costo aproximado por Persona:</strong> {{ costo_por_persona|floatformat:2 }}</p>
+<p><strong>Porciones por Persona:</strong> {{ porciones_por_persona|floatformat:2 }}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Ingrediente</th>
+            <th>Cantidad Necesaria</th>
+            <th>Unidad de Medida</th>
+            <th>Cantidad del Producto</th>
+            <th>Precio por Unidad</th>
+            <th>Costo Calculado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingrediente, detalles in lista_compras.items %}
+        <tr>
+            <td>{{ ingrediente }}</td>
+            <td>{{ detalles.cantidad|floatformat:2 }}</td>
+            <td>{{ detalles.unidad }}</td>
+            <td>{{ detalles.cantidad_unidad|floatformat:2 }}</td>
+            <td>{{ detalles.precio_unitario|floatformat:2 }}</td>
+            <td>{{ detalles.costo_total|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="5" style="text-align: right;"><strong>Total Costo:</strong></td>
+            <td><strong>{{ costo_total|floatformat:2 }}</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="{% url 'lista_caterings' %}">Volver a la Lista de Caterings</a>
+{% endblock %}

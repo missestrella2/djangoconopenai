@@ -1,0 +1,52 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Lista de Caterings{% endblock %}
+
+{% block content %}
+<h2 style="color: #2c3e50;">Lista de Caterings</h2>
+<a href="{% url 'agregar_catering' %}" class="btn btn-primary" style="background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">Crear Nuevo Catering</a>
+<div class="responsive-table" style="margin-top: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #34495e; color: white;">
+                <th style="padding: 10px;">Nombre</th>
+                <th style="padding: 10px;">Cantidad de Personas</th>
+                <th style="padding: 10px;">Acciones</th>
+                <th style="padding: 10px;">Calcular</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for catering in caterings %}
+            <tr style="background-color: {% cycle '#ecf0f1' '#bdc3c7' %};">
+                <td data-label="Nombre" style="padding: 10px;">{{ catering.nombre }}</td>
+                <td data-label="Cantidad de Personas" style="padding: 10px;">{{ catering.cantidad_personas }}</td>
+                <td data-label="Acciones" style="padding: 10px;">
+                    {% if catering.id %}
+                        <a href="{% url 'ver_catering' catering.id %}" class="btn btn-info" style="background-color: #1abc9c; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 14px;">
+                            <i class="fas fa-eye"></i> Ver
+                        </a>
+                        <a href="{% url 'editar_catering' catering.id %}" class="btn btn-warning" style="background-color: #f39c12; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 14px;">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{% url 'eliminar_catering' catering.id %}" class="btn btn-danger" style="background-color: #e74c3c; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 14px;" onclick="return confirm('¿Estás seguro de eliminar este catering?');">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    {% else %}
+                        <p style="color: #e74c3c;">Error: Catering no válido</p>
+                    {% endif %}
+                </td>
+                <td data-label="Calcular" style="padding: 10px;">
+                    {% if catering.id %}
+                        <a href="{% url 'finalizar_catering' catering.id %}" class="btn btn-success" style="background-color: #2ecc71; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 14px;">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </a>
+                    {% else %}
+                        <p style="color: #e74c3c;">Error: Catering no válido</p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

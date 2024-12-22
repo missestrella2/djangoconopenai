@@ -1,0 +1,43 @@
+{% extends 'calculos/base.html' %}
+
+{% block content %}
+<h1 style="color: #2c3e50;">Detalle del Catering</h1>
+<p><strong>Nombre:</strong> {{ catering.nombre }}</p>
+<p><strong>Cantidad de Personas:</strong> {{ catering.cantidad_personas }}</p>
+
+<h2 style="color: #2c3e50;">Recetas</h2>
+<div class="responsive-table" style="margin-top: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #34495e; color: white;">
+                <th style="padding: 10px;">Receta</th>
+                <th style="padding: 10px;">Porciones</th>
+                <th style="padding: 10px;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receta in recetas %}
+            <tr style="background-color: {% cycle '#ecf0f1' '#bdc3c7' %};">
+                <td data-label="Receta" style="padding: 10px;">{{ receta.receta.nombre }}</td>
+                <td data-label="Porciones" style="padding: 10px;">{{ receta.porciones }}</td>
+                <td data-label="Acciones" style="padding: 10px;">
+                    <a href="{% url 'detalle_receta' receta.receta.id %}" class="btn btn-info" style="background-color: #1abc9c; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 14px;">
+                        <i class="fas fa-eye"></i> Ver
+                    </a>
+                    <a href="{% url 'editar_receta' receta.receta.id %}" class="btn btn-warning" style="background-color: #f39c12; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 14px;">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a href="{% url 'eliminar_receta' receta.receta.id %}" class="btn btn-danger" style="background-color: #e74c3c; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 14px;" onclick="return confirm('¿Está seguro de eliminar esta receta?');">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="{% url 'lista_caterings' %}" class="btn btn-primary" style="background-color: #3498db; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px;">
+    <i class="fas fa-arrow-left"></i> Volver a la lista de Caterings
+</a>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'calculos/base.html' %}
+
+{% block content %}
+<h1>Chatbot uuu</h1>
+<div id="chatbox">
+    <div id="messages" style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;"></div>
+    <form id="chat-form" style="margin-top: 10px;">
+        <input 
+            type="text" 
+            id="user-message" 
+            placeholder="Escribe tu mensaje aquí..." 
+            required 
+            style="width: 80%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;"
+        >
+        <button 
+            type="submit" 
+            style="padding: 8px 15px; border: none; border-radius: 5px; background-color: #333; color: white; cursor: pointer;"
+        >
+            Enviar
+        </button>
+    </form>
+</div>
+
+<script>
+    // Obtén el token CSRF desde las cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    // Maneja el envío del formulario
+    document.getElementById("chat-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const userMessage = document.getElementById("user-message").value;
+
+        // Envía el mensaje del usuario al backend
+        fetch("{% url 'enviar_mensaje_a_rasa' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({ message: userMessage }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messagesDiv = document.getElementById("messages");
+
+            // Muestra el mensaje del usuario
+            const userDiv = document.createElement("div");
+            userDiv.style.margin = "10px 0";
+            userDiv.style.color = "#333";
+            userDiv.textContent = `Tú: ${userMessage}`;
+            messagesDiv.appendChild(userDiv);
+
+            // Procesa y muestra las respuestas del bot
+            data.forEach(response => {
+                if (response.text) {
+                    const botTextDiv = document.createElement("div");
+                    botTextDiv.style.margin = "10px 0";
+                    botTextDiv.style.color = "#007BFF";
+                    botTextDiv.textContent = `Bot: ${response.text}`;
+                    messagesDiv.appendChild(botTextDiv);
+                }
+
+                if (response.image) {
+                    const botImage = document.createElement("img");
+                    botImage.src = response.image;
+                    botImage.alt = "Imagen del bot";
+                    botImage.style.maxWidth = "100%";
+                    botImage.style.borderRadius = "5px";
+                    botImage.style.marginTop = "10px";
+                    messagesDiv.appendChild(botImage);
+                }
+            });
+
+            // Limpia el campo de entrada
+            document.getElementById("user-message").value = "";
+
+            // Hace scroll hacia el último mensaje
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+</script>
+{% endblock %}

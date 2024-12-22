@@ -1,0 +1,19 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Lista de Compras{% endblock %}
+
+{% block content %}
+
+<section>
+    <h2>¿Cómo funciona?</h2>
+    <ol>
+        <li><strong>Cargar Ingredientes:</strong> Define los ingredientes principales con su cantidad, unidad de medida y precio.</li>
+        <li><strong>Crear Recetas:</strong> Asocia los ingredientes a una receta indicando la cantidad necesaria por porción.</li>
+        <li><strong>Planificar tu Catering:</strong> Elige las recetas, define la cantidad de porciones y el número de invitados.</li>
+        <li><strong>Calcula:</strong> Obtén la lista de compras detallada, el costo total, y el costo por persona para tu evento.</li>
+    </ol>
+</section>
+
+<a href="{% url 'lista_caterings' %}" class="button">Volver a la Lista de Caterings</a>
+{% endblock %}
+

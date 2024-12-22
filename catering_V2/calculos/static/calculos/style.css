@@ -1,0 +1,195 @@
+/* General styles */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+    background: #444;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background-color: #333;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive table */
+@media screen and (max-width: 768px) {
+    table thead {
+        display: none;
+    }
+
+    table, table tbody, table tr, table td {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        margin-bottom: 10px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+/* Button styles */
+a.button, .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 5px;
+    transition: background-color 0.3s ease;
+}
+
+a.button:hover, .btn:hover {
+    background-color: #555;
+}
+
+a.btn-primary {
+    background-color: #3498db;
+}
+
+a.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+a.btn-info {
+    background-color: #1abc9c;
+}
+
+a.btn-info:hover {
+    background-color: #16a085;
+}
+
+a.btn-warning {
+    background-color: #f39c12;
+}
+
+a.btn-warning:hover {
+    background-color: #e67e22;
+}
+
+a.btn-danger {
+    background-color: #e74c3c;
+}
+
+a.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+a.btn-success {
+    background-color: #2ecc71;
+}
+
+a.btn-success:hover {
+    background-color: #27ae60;
+}
+
+/* Icon styles */
+i {
+    margin-right: 5px;
+}
+
+/*#chatbox img {
+    max-width: 100%; 
+    height: auto;    
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);} 
+*/

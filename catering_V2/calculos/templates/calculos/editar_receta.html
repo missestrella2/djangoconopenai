@@ -1,0 +1,44 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Editar Receta{% endblock %}
+
+{% block content %}
+<h2>Editar Receta: {{ receta.nombre }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<h3>Ingredientes de la Receta</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Ingrediente</th>
+            <th>Cantidad Necesaria</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingrediente in ingredientes %}
+        <tr>
+            <td>{{ ingrediente.ingrediente.nombre }}</td>
+            <td>{{ ingrediente.cantidad_necesaria }}</td>
+            <td>
+                <a href="{% url 'editar_ingrediente_receta' ingrediente.id %}">Editar</a>
+                <a href="{% url 'eliminar_ingrediente_receta' ingrediente.id %}" onclick="return confirm('¿Está seguro de eliminar este ingrediente?');">Eliminar</a>
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Agregar Ingrediente</h3>
+<form method="post" action="{% url 'agregar_ingrediente_receta' receta.id %}">
+    {% csrf_token %}
+    {{ ingrediente_form.as_p }}
+    <button type="submit">Agregar Ingrediente</button>
+</form>
+{% endblock %}
+

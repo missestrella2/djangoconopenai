@@ -1,0 +1,31 @@
+# Ignorar entornos virtuales y cache
+# Ignorar entornos virtuales y archivos temporales
+venv/
+rasa_env/
+__pycache__/
+*.pyc
+db.sqlite3
+*.zip
+
+
+# catering_V2/venv/
+# catering_V2/rasa_env/
+# venv/
+# rasa_env/
+# venv/
+# __pycache__/
+# calculos/__pycache__/
+# catering_V2/calculos/__pycache__/*.pyc
+# catering_V2/__pycache__/
+# catering_V2//catering_V2/__pycache__/*.pyc
+# *.pyc
+# db.sqlite3
+# catering_V2/catering_V2/wsgi.py
+# catering_V2/catering_V2/catering_V2/wsgi.py
+# catering_V2.zip
+# catering_V2/catering_V2.zip
+# *.zip
+# *.pyd
+# rasa_env/Lib/site-packages/tensorflow/python/_pywrap_tensorflow_internal.pyd
+# rasa_env/Lib/site-packages/jaxlib/xla_extension.pyd
+# '''

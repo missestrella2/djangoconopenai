@@ -1,0 +1,10 @@
+{% extends 'calculos/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>Lista de Compras para {{ cantidad_personas }} personas</h1>
+    <ul>
+        {% for item in lista_compras %}
+            <li>{{ item.cantidad }} {{ item.unidad }} de {{ item.ingrediente }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

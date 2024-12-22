@@ -1,0 +1,33 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Detalle de Receta{% endblock %}
+
+{% block content %}
+<h2>Detalle de la Receta: {{ receta.nombre }}</h2>
+<p>Porciones: {{ receta.porciones }}</p>
+<h3>Ingredientes:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Ingrediente</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingrediente in ingredientes %}
+        <tr>
+            <td>{{ ingrediente.ingrediente.nombre }}</td>
+            <td>{{ ingrediente.cantidad_necesaria }}</td>
+            <td>{{ ingrediente.ingrediente.unidad }}</td>
+            <td>
+                <a href="{% url 'editar_ingrediente_receta' ingrediente.id %}">Editar</a>
+                <a href="{% url 'eliminar_ingrediente_receta' ingrediente.id %}" onclick="return confirm('¿Está seguro de eliminar este ingrediente?');">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'editar_receta' receta.id %}">Editar Receta</a>
+{% endblock %}

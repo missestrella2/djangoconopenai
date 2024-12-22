@@ -1,0 +1,13 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Agregar Catering{% endblock %}
+
+{% block content %}
+<h2>Agregar Catering</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}
+
