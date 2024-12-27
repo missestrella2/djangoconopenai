@@ -102,3 +102,20 @@ def obtener_mensajes_guardados(request):
         mensajes = ChatMessage.objects.order_by('-timestamp')  # Orden por tiempo
         datos = [{"sender": mensaje.sender, "message": mensaje.message, "timestamp": mensaje.timestamp.strftime("%Y-%m-%d %H:%M:%S")} for mensaje in mensajes]
         return JsonResponse(datos, safe=False)
+
+from django.http import JsonResponse
+from calculos.models import Ingrediente
+
+
+
+
+def crear_ingrediente(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        ingrediente = Ingrediente.objects.create(
+            nombre=data["nombre"],
+            cantidad=data["cantidad"],
+            precio=data["precio"]
+        )
+        return JsonResponse({"message": "Ingrediente creado"}, status=201)
+

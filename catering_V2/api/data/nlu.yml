@@ -1,91 +1,94 @@
 version: "3.1"
 
 nlu:
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+  - intent: saludo
+    examples: |
+      - Hola
+      - Buenas
+      - Qué tal
+      - Hey
+      - Hola, qué tal
+      - Hola bot
+      - Buenos días
+      - Buenas tardes
 
-- intent: goodbye
-  examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+  - intent: goodbye
+    examples: |
+      - Chau
+      - Adios
+      - Me voy
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+  - intent: elegir_opcion
+    examples: |
+      - Necesito registrar una receta
+      - Crear un catering
+      - Agregar una receta
+      - Planificar un catering
+      - Quiero registrar algo
+      - Necesito hacer algo
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+  - intent: agregar_ingrediente
+    examples: |
+      - Agregar un ingrediente
+      - Registrar un nuevo ingrediente
+      - Necesito guardar un ingrediente
+      - Quiero añadir un ingrediente
+      - Registrar ingrediente
+      - Cargar un ingrediente
 
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+  # - intent: agregar_ingredientes
+  #   examples: |
+  #     - Quiero añadir un nuevo ingrediente
+  #     - Necesito cargar ingredientes
+  #     - Agregar un ingrediente a la lista
 
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+  - intent: bot_challenge
+    examples: |
+      - ¿Eres un bot?
+      - ¿Quién te creó?
+      - ¿Qué puedes hacer?
 
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+  - intent: deny
+    examples: |
+      - No gracias
+      - Eso no es correcto
+      - Prefiero no hacerlo
+      - No quiero
+
+  - intent: confirmar_datos
+    examples: |
+      - Sí
+      - Está bien
+      - Correcto
+      - Confirmo
+      - Es correcto
+
+
+  - intent: informar_nombre
+    examples: |
+      - Harina
+      - Azúcar
+      - Aceite
+      - Huevos
+      - Leche
+      - Manteca
+
+  - intent: informar_cantidad
+    examples: |
+      - 100 gramos
+      - 1 kilo
+      - 500 mililitros
+      - 2 litros
+      - 3 unidades
+      - 1 taza
+
+  - intent: informar_precio
+    examples: |
+      - 100 pesos
+      - 250
+      - $300
+      - Cuesta 400
+      - 50 pesos
+      - $20
+
+
