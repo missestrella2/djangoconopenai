@@ -1,28 +1,39 @@
 {% extends 'calculos/base.html' %}
 
 {% block content %}
-<h1>Chatbot uuu</h1>
-<div id="chatbox">
-    <div id="messages" style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;"></div>
-    <form id="chat-form" style="margin-top: 10px;">
-        <input 
-            type="text" 
-            id="user-message" 
-            placeholder="Escribe tu mensaje aquí..." 
-            required 
-            style="width: 80%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;"
-        >
-        <button 
-            type="submit" 
-            style="padding: 8px 15px; border: none; border-radius: 5px; background-color: #333; color: white; cursor: pointer;"
-        >
-            Enviar
-        </button>
-    </form>
+<h1>Chatbot</h1>
+<div id="chat-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+    <!-- Sección del Chat -->
+    <div id="chatbox" style="flex: 2; min-width: 300px;">
+        <div id="messages" style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;"></div>
+        <form id="chat-form" style="margin-top: 10px;">
+            <input 
+                type="text" 
+                id="user-message" 
+                placeholder="Escribe tu mensaje aquí..." 
+                required 
+                style="width: calc(80% - 10px); padding: 8px; border-radius: 5px; border: 1px solid #ccc; margin-right: 10px;"
+            >
+            <button 
+                type="submit" 
+                style="padding: 8px 15px; border: none; border-radius: 5px; background-color: #333; color: white; cursor: pointer;"
+            >
+                Enviar
+            </button>
+        </form>
+    </div>
+
+    <!-- Mensajes Guardados -->
+    <div id="saved-messages" style="flex: 1; min-width: 250px; border: 1px solid #ccc; padding: 10px; border-radius: 5px; max-height: 400px; overflow-y: auto;">
+        <h3 style="margin: 0 0 10px;">Mensajes Guardados</h3>
+        <ul id="messages-list" style="list-style: none; padding: 0; margin: 0;"></ul>
+    </div>
+
 </div>
 
 <script>
-    // Obtén el token CSRF desde las cookies
+    // Función para obtener el token CSRF desde las cookies
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -40,13 +51,12 @@
 
     const csrftoken = getCookie('csrftoken');
 
-    // Maneja el envío del formulario
+    // Enviar mensaje y mostrar respuesta
     document.getElementById("chat-form").addEventListener("submit", function (e) {
         e.preventDefault();
 
         const userMessage = document.getElementById("user-message").value;
 
-        // Envía el mensaje del usuario al backend
         fetch("{% url 'enviar_mensaje_a_rasa' %}", {
             method: "POST",
             headers: {
@@ -55,18 +65,23 @@
             },
             body: JSON.stringify({ message: userMessage }),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la respuesta del servidor");
+            }
+            return response.json();
+        })
         .then(data => {
             const messagesDiv = document.getElementById("messages");
 
-            // Muestra el mensaje del usuario
+            // Mostrar el mensaje del usuario
             const userDiv = document.createElement("div");
             userDiv.style.margin = "10px 0";
             userDiv.style.color = "#333";
             userDiv.textContent = `Tú: ${userMessage}`;
             messagesDiv.appendChild(userDiv);
 
-            // Procesa y muestra las respuestas del bot
+            // Mostrar las respuestas del bot
             data.forEach(response => {
                 if (response.text) {
                     const botTextDiv = document.createElement("div");
@@ -87,15 +102,34 @@
                 }
             });
 
-            // Limpia el campo de entrada
+            // Limpiar el campo de entrada
             document.getElementById("user-message").value = "";
 
-            // Hace scroll hacia el último mensaje
+            // Hacer scroll hacia el último mensaje
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         })
         .catch(error => {
             console.error("Error:", error);
         });
     });
+
+    // Obtener mensajes guardados periódicamente
+    function actualizarMensajesGuardados() {
+        fetch("{% url 'mensajes_guardados' %}")
+        .then(response => response.json())
+        .then(data => {
+            const messagesList = document.getElementById("messages-list");
+            messagesList.innerHTML = ""; // Limpiar la lista
+
+            data.forEach(mensaje => {
+                const li = document.createElement("li");
+                li.textContent = `[${mensaje.timestamp}] ${mensaje.sender}: ${mensaje.message}`;
+                messagesList.appendChild(li);
+            });
+        });
+    }
+
+    // Actualizar mensajes guardados cada 5 segundos
+    setInterval(actualizarMensajesGuardados, 5000);
 </script>
 {% endblock %}

@@ -15,7 +15,8 @@ responses:
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+    image: "https://www.hola.com/imagenes/mascotas/20180925130054/consejos-para-cuidar-a-un-gatito-recien-nacido-cs/0-601-526/cuidardgatito-t.jpg?im=Resize=(1200)"
+    #image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
   - text: "Did that help you?"
