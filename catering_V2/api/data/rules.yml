@@ -11,9 +11,7 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-rules:
 - rule: Say hello anytime the user says hello
   steps:
   - intent: saludo
   - action: utter_saludo
-
