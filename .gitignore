@@ -2,9 +2,10 @@
 # Ignorar entornos virtuales y archivos temporales
 venv/
 rasa_env/
-__pycache__/
-*.pyc
-db.sqlite3
+rasa/
+#__pycache__/
+#*.pyc
+#db.sqlite3
 *.zip
 
 
