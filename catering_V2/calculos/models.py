@@ -32,14 +32,14 @@ class Receta(models.Model):
 
 # Tabla intermedia para definir ingredientes en recetas
 class RecetaIngrediente(models.Model):
-    receta = models.ForeignKey(Receta, on_delete=models.CASCADE)
-    ingrediente = models.ForeignKey(Ingrediente, on_delete=models.CASCADE)
-    cantidad_necesaria = models.DecimalField(max_digits=10, decimal_places=2)  # Cantidad necesaria para esta receta
-    unidad = models.CharField(max_length=50)  # Unidad específica
+    receta = models.ForeignKey(
+        Receta, on_delete=models.CASCADE, related_name="ingredientes")
+    ingrediente = models.ForeignKey(
+        Ingrediente, on_delete=models.CASCADE, related_name="recetas")
+    cantidad_necesaria = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"{self.cantidad_necesaria} {self.unidad} de {self.ingrediente.nombre} para {self.receta.nombre}"
-
+        return f"{self.cantidad_necesaria} {self.ingrediente.unidad} de {self.ingrediente.nombre} para {self.receta.nombre}"
 
 class Catering(models.Model):
     nombre = models.CharField(max_length=100, default="Catering genérico")

@@ -10,6 +10,7 @@
             <tr style="background-color: #34495e; color: white;">
                 <th style="padding: 10px;">Ingrediente</th>
                 <th style="padding: 10px;">Cantidad Total</th>
+                <th style="padding: 10px;">Unidad de medida</th>
                 <th style="padding: 10px;">Precio Unitario</th>
                 <th style="padding: 10px;">Costo Total</th>
             </tr>
@@ -19,6 +20,7 @@
             <tr style="background-color: {% cycle '#ecf0f1' '#bdc3c7' %};">
                 <td data-label="Ingrediente" style="padding: 10px;">{{ ingrediente.nombre }}</td>
                 <td data-label="Cantidad Total" style="padding: 10px;">{{ cantidad|floatformat:2 }}</td>
+                <td data-label="Unidad" style="padding: 10px;">{{ ingrediente.unidad }}</td>
                 <td data-label="Precio Unitario" style="padding: 10px;">{{ ingrediente.precio|floatformat:2 }}</td>
                 <td data-label="Costo Total" style="padding: 10px;">{{ cantidad|floatformat:2|times:ingrediente.precio|floatformat:2 }}</td>
             </tr>

@@ -6,44 +6,36 @@ from .forms import IngredienteForm, RecetaForm, CateringForm, RecetaIngredienteF
 from decimal import Decimal
 
 
-from decimal import Decimal
-from django.shortcuts import get_object_or_404
-
 def calcular_lista_compras(catering_id):
     catering = get_object_or_404(Catering, pk=catering_id)
     lista_compras = {}
     cantidad_personas_catering = Decimal(catering.cantidad_personas)
     cantidad_porciones_totales = 0
 
-    # Iterar sobre las recetas asociadas al catering
     for catering_receta in catering.recetas.all():
         receta = catering_receta.receta
         porciones_necesarias = Decimal(catering_receta.porciones)
         cantidad_porciones_totales += porciones_necesarias
         porciones_receta = Decimal(receta.porciones)
 
-        # Iterar sobre los ingredientes de cada receta
         for ingrediente_receta in RecetaIngrediente.objects.filter(receta=receta):
             ingrediente = ingrediente_receta.ingrediente
             cantidad_por_receta = Decimal(ingrediente_receta.cantidad_necesaria)
             precio_unitario = Decimal(ingrediente.precio)
             cantidad_unidad = Decimal(ingrediente.cantidad)
 
-            # Calcular cantidad ajustada para el catering
             cantidad_ajustada = (cantidad_por_receta / porciones_receta) * porciones_necesarias
 
-            # Sumar al total si ya está en la lista
             if ingrediente.nombre in lista_compras:
                 lista_compras[ingrediente.nombre]['cantidad'] += cantidad_ajustada
             else:
                 lista_compras[ingrediente.nombre] = {
                     'cantidad': cantidad_ajustada,
-                    'unidad': ingrediente_receta.unidad,
+                    'unidad': ingrediente.unidad,
                     'precio_unitario': precio_unitario,
                     'cantidad_unidad': cantidad_unidad,
                 }
 
-    # Calcular el costo total con la fórmula corregida
     costo_total = Decimal(0)
     for ingrediente in lista_compras.values():
         ingrediente['costo_total'] = (ingrediente['cantidad'] * ingrediente['precio_unitario']) / ingrediente['cantidad_unidad']
@@ -55,6 +47,19 @@ def calcular_lista_compras(catering_id):
     return lista_compras, costo_total, costo_por_persona, cantidad_porciones_totales, porciones_por_persona
 
 
+def finalizar_catering(request, pk):
+    catering = get_object_or_404(Catering, pk=pk)
+    lista_compras, costo_total, costo_por_persona, cantidad_porciones_totales, porciones_por_persona = calcular_lista_compras(pk)
+
+    return render(request, 'calculos/finalizar_catering.html', {
+        'catering': catering,
+        'lista_compras': lista_compras,
+        'costo_total': costo_total,
+        'costo_por_persona': costo_por_persona,
+        'cantidad_personas': catering.cantidad_personas,
+        'cantidad_porciones_totales': cantidad_porciones_totales,
+        'porciones_por_persona': porciones_por_persona,
+    })
 
 
 # Vista para el home principal
@@ -260,20 +265,6 @@ def lista_caterings(request):
     caterings = Catering.objects.all()
     return render(request, 'calculos/lista_caterings.html', {'caterings': caterings})
 
-def finalizar_catering(request, pk):
-    catering = get_object_or_404(Catering, pk=pk)
-    lista_compras, costo_total, costo_por_persona, cantidad_porciones_totales, porciones_por_persona = calcular_lista_compras(pk)
-
-    return render(request, 'calculos/finalizar_catering.html', {
-        'catering': catering,
-        'lista_compras': lista_compras,
-        'costo_total': costo_total,
-        'costo_por_persona': costo_por_persona,
-        'cantidad_personas': catering.cantidad_personas,
-        'cantidad_porciones_totales': cantidad_porciones_totales,
-        'porciones_por_persona': porciones_por_persona,
-        
-    })
 
 
 
