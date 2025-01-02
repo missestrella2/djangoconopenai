@@ -62,6 +62,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            BASE_DIR / 'templates',
             BASE_DIR / 'catering_V2' / 'templates',
             BASE_DIR / 'catering_V2' / 'calculos' / 'templates',  # Make sure this path is correct
             BASE_DIR / 'catering_V2' / 'api' / 'templates',
