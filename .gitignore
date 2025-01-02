@@ -3,6 +3,7 @@
 venv/
 rasa_env/
 rasa/
+djangoenv/
 #__pycache__/
 #*.pyc
 #db.sqlite3
