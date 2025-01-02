@@ -8,7 +8,7 @@ djangoenv/
 #*.pyc
 #db.sqlite3
 *.zip
-
+catering_V2/catering_V2/settings.py
 
 # catering_V2/venv/
 # catering_V2/rasa_env/
