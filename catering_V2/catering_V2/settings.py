@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-#-19ahz+obzlgcdebt%r20mrq&2ht4^m!8^e(%w%!4*6-s2da#
 #DEBUG = False
 #ALLOWED_HOSTS = ['cynthiavillagra.pythonanywhere.com']
 
+
 #Pruebas locales
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -130,21 +131,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-#import os
-#from pathlib import Path
-
-#BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Ruta para los archivos estáticos
-#STATIC_URL = '/static/'
-
 # Directorios adicionales donde buscar archivos estáticos
-#STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, 'static'),  # Asegúrate de que esta carpeta exista
-#]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Asegúrate de que esta carpeta exista
+]
 
 # Carpeta para recolectar todos los archivos estáticos (para producción)
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

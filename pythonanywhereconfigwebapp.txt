@@ -3,11 +3,15 @@ en consola:
 install python 3.9
 mkvirtualenv myvirtualenv --python=/usr/bin/python3.9
 
-install django
-pip install django
+============================
 
 install requeriments
 pip install -r requirements.txt
+
+ó
+
+install django
+pip install django
 
 install djangorest
 pip install djangorestframework
@@ -15,6 +19,7 @@ pip install djangorestframework
 install requests
 pip install requests
 
+=================
 recolectar estaticos
 python manage.py collectstatic
 
@@ -27,20 +32,27 @@ en settings:
 DEBUG = False
 ALLOWED_HOSTS = ['cynthiavillagra.pythonanywhere.com']
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'catering_V2', 'static'),
+]
+
 
 en wsgi:
 ==============
+import os
 import sys
 
 # Añade las rutas a tu proyecto
-sys.path.append('/home/cynthiavillagra/catering_V2/catering_V2')  # Ruta base del proyecto
-sys.path.append('/home/cynthiavillagra/catering_V2/catering_V2/catering_V2')  # Ruta donde está settings.py
+sys.path.append('/home/cynthiavillagra/catering_V2')  # Ruta base del proyecto
+sys.path.append('/home/cynthiavillagra/catering_V2/catering_V2')  # Ruta a la carpeta donde está settings.py
 
 # Activa el entorno virtual
 activate_this = '/home/cynthiavillagra/.virtualenvs/myvirtualenv/bin/activate_this.py'
 exec(open(activate_this).read(), {'__file__': activate_this})
 
-# Configura DJANGO_SETTINGS_MODULE para que apunte correctamente al archivo settings.py
+# Configura DJANGO_SETTINGS_MODULE para que apunte al archivo settings.py
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'catering_V2.settings')
 
 # Importa y configura la aplicación WSGI
