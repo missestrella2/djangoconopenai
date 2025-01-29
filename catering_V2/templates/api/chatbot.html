@@ -2,51 +2,106 @@
 
 {% block content %}
 
-    <div id="chatbox">
-        <div id="messages"></div>
-        <input type="text" id="userInput" placeholder="Type a message..." style="width: 80%;">
-        <button onclick="sendMessage()">Send</button>
+    <iframe src="https://chatgpt.com/g/g-6798de56d9848191a7af1ca7de8ff752-calculadora-de-catering" width="800" height="600" style="border: 1px solid black;">
+        Tu navegador no soporta iframes.
+    </iframe>
+
+<!--
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        #chat-container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        #chat-box {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #fafafa;
+            text-align: left;
+        }
+        .message {
+            padding: 5px;
+            margin: 5px 0;
+        }
+        .user {
+            text-align: right;
+            color: blue;
+        }
+        .bot {
+            text-align: left;
+            color: green;
+        }
+        #user-input {
+            width: 80%;
+            padding: 10px;
+        }
+        #send-btn {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="chat-container">
+        <h2>Chatbot de Catering</h2>
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Escribe un mensaje...">
+        <button id="send-btn">Enviar</button>
     </div>
+
     <script>
-        const rasaEndpoint = "http://localhost:5005/webhooks/rest/webhook";
+        document.getElementById("send-btn").addEventListener("click", function() {
+            let userInput = document.getElementById("user-input").value;
+            if (userInput.trim() === "") return;
 
-        function sendMessage() {
-            const userInput = document.getElementById("userInput").value;
-            const messagesDiv = document.getElementById("messages");
+            let chatBox = document.getElementById("chat-box");
 
-            if (!userInput) return;
-
-            // Display user message
-            const userMessage = document.createElement("div");
+            // Mostrar el mensaje del usuario
+            let userMessage = document.createElement("p");
             userMessage.className = "message user";
-            userMessage.textContent = `You: ${userInput}`;
-            messagesDiv.appendChild(userMessage);
+            userMessage.textContent = "Tú: " + userInput;
+            chatBox.appendChild(userMessage);
 
-            // Send message to Rasa
-            fetch(rasaEndpoint, {
+            // Limpiar input
+            document.getElementById("user-input").value = "";
+
+            // Enviar mensaje a la API
+            fetch("/api/chatbot/gpt/", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userInput })
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ "message": userInput })
             })
             .then(response => response.json())
             .then(data => {
-                data.forEach(botMessage => {
-                    const botMessageDiv = document.createElement("div");
-                    botMessageDiv.className = "message bot";
-                    botMessageDiv.textContent = `Bot: ${botMessage.text}`;
-                    messagesDiv.appendChild(botMessageDiv);
-                });
+                let botMessage = document.createElement("p");
+                botMessage.className = "message bot";
+                botMessage.textContent = "Bot: " + data.gpt_response;
+                chatBox.appendChild(botMessage);
+
+                // Scroll automático
+                chatBox.scrollTop = chatBox.scrollHeight;
             })
             .catch(error => {
-                const errorMessage = document.createElement("div");
-                errorMessage.className = "message bot";
-                errorMessage.textContent = "Bot: Sorry, something went wrong.";
-                messagesDiv.appendChild(errorMessage);
+                console.error("Error:", error);
             });
-
-            // Clear input field
-            document.getElementById("userInput").value = "";
-        }
+        });
     </script>
+
+-->
 
 {% endblock %}
