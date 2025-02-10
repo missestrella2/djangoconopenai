@@ -11,8 +11,8 @@ urlpatterns = [
     path('openapi/', SpectacularAPIView.as_view(), name='openapi-schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='openapi-schema'), name='swagger-ui'),
     path('chatbot/gpt/', GPTInteractionView.as_view(), name='gpt_interaction'),
-
-
 ]
+
+
 
 

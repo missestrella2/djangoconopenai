@@ -20,11 +20,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 from django.contrib import admin
-from django.urls import path, include
 from calculos import views  # Importa las vistas de la aplicación "calculos"
-from django.urls import path, include
-
-
+from .views import politica_privacidad  # Si la vista está en 'catering/views.py'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,7 +31,7 @@ urlpatterns = [
     #path('calculos/calcular/', views.calcular_catering, name='calcular_catering'),
     path('calculos/', views.home_calculos, name='home_calculos'),  # Nueva ruta para /calculos/
     path('api/', include('api.urls')),
-
+    path('politica-de-privacidad/', politica_privacidad, name='politica_privacidad'),
 ]
 
 

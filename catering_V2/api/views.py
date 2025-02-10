@@ -147,3 +147,5 @@ def chatbot_view(request):
     csrf_token = get_token(request)  # Genera el token CSRF
     return render(request, 'api/chatbot.html', {"csrf_token": csrf_token})
 
+
+
