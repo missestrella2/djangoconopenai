@@ -45,12 +45,13 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'drf_spectacular',
-    'openapi',
+    #'openapi',
     'openai',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
-
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +65,7 @@ ROOT_URLCONF = 'catering_V2.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -74,6 +75,12 @@ REST_FRAMEWORK = {
     ],
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "https://cynthiavillagra.pythonanywhere.com",
+    "http://localhost:8000", 
+]
+
+CORS_ALLOW_ALL_ORIGINS = True 
 
 TEMPLATES = [
     {
