@@ -77,6 +77,8 @@ REST_FRAMEWORK = {
 
     # Configuración de permisos (Temporalmente deshabilitada)
     'DEFAULT_PERMISSION_CLASSES': [
+    
+        'rest_framework.permissions.AllowAny'  # Permite acceso sin autenticación
         #'rest_framework.permissions.IsAuthenticated'  # Solo permite acceso a usuarios autenticados (comentado)
     ],
 }
