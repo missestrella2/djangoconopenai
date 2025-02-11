@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['cynthiavillagra.pythonanywhere.com','localhost','127.0.0.1']
 
 #Pruebas locales
 #DEBUG = True
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = 'cynthiavillagra.pythonanywhere.com','localhost','127.0.0.1'[]
 
 # Application definition
 
@@ -64,6 +64,24 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'catering_V2.urls'
 
 REST_FRAMEWORK = {
+    # Define la clase de esquema para la documentación de OpenAPI con drf-spectacular
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    # Configuración de autenticación (Temporalmente deshabilitada)
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+    
+        #'rest_framework.authentication.SessionAuthentication',  # Para autenticación con sesiones de Django (comentado)
+        #'rest_framework.authentication.TokenAuthentication',  # Para autenticación con Token (comentado)
+    ],
+
+    # Configuración de permisos (Temporalmente deshabilitada)
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.IsAuthenticated'  # Solo permite acceso a usuarios autenticados (comentado)
+    ],
+}
+
+'''
+REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -74,6 +92,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated'
     ],
 }
+'''
+
 
 CORS_ALLOWED_ORIGINS = [
     "https://cynthiavillagra.pythonanywhere.com",

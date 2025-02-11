@@ -1,15 +1,9 @@
-# api/views.py
-
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from django.shortcuts import render
 from django.middleware.csrf import get_token
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import json
-from decimal import Decimal
 from django.conf import settings
 import openai
 
@@ -22,48 +16,13 @@ from calculos.models import (
     Ingrediente, Receta, RecetaIngrediente,
     Catering, CateringReceta
 )
-# Asegúrate de que exista un modelo ChatMessage en api/models.py,
-# o ajusta este import según corresponda a tu proyecto
-from .models import ChatMessage
+from .models import ChatMessage  # Asegúrate de que existe en `api/models.py`
 
 
 def chatbot_view(request):
     """Renderiza la página del chatbot con el token CSRF."""
     csrf_token = get_token(request)
     return render(request, 'api/chatbot.html', {"csrf_token": csrf_token})
-
-
-@csrf_exempt
-def crear_ingrediente(request):
-    """
-    Crea un ingrediente en la base de datos de Django.
-    """
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-
-            # Extraer datos
-            nombre = data.get("nombre", "")
-            marca = data.get("marca", None)
-            cantidad = Decimal(data.get("cantidad", "0"))
-            unidad = data.get("unidad", "g")
-            precio = Decimal(data.get("precio", "0"))
-
-            # Guardar en la base de datos
-            Ingrediente.objects.create(
-                nombre=nombre,
-                marca=marca,
-                cantidad=cantidad,
-                unidad=unidad,
-                precio=precio
-            )
-
-            return JsonResponse({"message": "Ingrediente creado correctamente"}, status=201)
-
-        except Exception as e:
-            return JsonResponse({"error": f"Error al crear ingrediente: {str(e)}"}, status=500)
-
-    return JsonResponse({"error": "Método no permitido"}, status=405)
 
 
 class GPTInteractionView(APIView):
@@ -144,25 +103,45 @@ class GPTDatabaseInteractionView(APIView):
 
 
 #
-#  A continuación, los ModelViewSet para un CRUD completo en toda la BD
+#  ModelViewSets para manejar CRUD completo de todos los modelos
 #
 
 class IngredienteViewSet(viewsets.ModelViewSet):
+    """
+    API para gestionar ingredientes.
+    Permite GET, POST, PUT y DELETE automáticamente.
+    """
     queryset = Ingrediente.objects.all()
     serializer_class = IngredienteSerializer
 
+
 class RecetaViewSet(viewsets.ModelViewSet):
+    """
+    API para gestionar recetas.
+    """
     queryset = Receta.objects.all()
     serializer_class = RecetaSerializer
 
+
 class RecetaIngredienteViewSet(viewsets.ModelViewSet):
+    """
+    API para gestionar la relación entre recetas e ingredientes.
+    """
     queryset = RecetaIngrediente.objects.all()
     serializer_class = RecetaIngredienteSerializer
 
+
 class CateringViewSet(viewsets.ModelViewSet):
+    """
+    API para gestionar caterings.
+    """
     queryset = Catering.objects.all()
     serializer_class = CateringSerializer
 
+
 class CateringRecetaViewSet(viewsets.ModelViewSet):
+    """
+    API para gestionar la relación entre caterings y recetas.
+    """
     queryset = CateringReceta.objects.all()
     serializer_class = CateringRecetaSerializer
