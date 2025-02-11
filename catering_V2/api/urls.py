@@ -10,7 +10,8 @@ from .views import (
     RecetaViewSet,
     RecetaIngredienteViewSet,
     CateringViewSet,
-    CateringRecetaViewSet
+    CateringRecetaViewSet,
+    descargar_prompt_txt
 )
 
 
@@ -26,7 +27,7 @@ urlpatterns = [
     path('openapi/', SpectacularAPIView.as_view(), name='openapi-schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='openapi-schema'), name='swagger-ui'),
     path('schema-txt/', descargar_schema_txt, name='descargar_schema_txt'),
-    path('prompt-txt/', descargar_schema_txt, name='descargar_prompt_txt'),
+    path('prompt-txt/', descargar_prompt_txt, name='descargar_prompt_txt'),
     # Si tienes más rutas personalizadas, agrégalas aquí
 ]
 

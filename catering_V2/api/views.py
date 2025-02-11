@@ -160,7 +160,7 @@ def descargar_schema_txt(request):
 
 def descargar_prompt_txt(request):
     """
-    Devuelve el archivo OpenAPI Schema en formato .txt
+    Devuelve el archivo prompt_gpt Schema en formato .txt
     """
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../prompt_gpt.txt")  # Ruta en la raíz
     if os.path.exists(file_path):
