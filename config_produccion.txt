@@ -10,14 +10,17 @@ pip install -r requirements.txt
 
 ó
 
-install django
+install django:
 pip install django
 
-install djangorest
+install djangorest:
 pip install djangorestframework
 
-install requests
+install requests:
 pip install requests
+
+install openai:
+pip install openai
 
 =================
 recolectar estaticos

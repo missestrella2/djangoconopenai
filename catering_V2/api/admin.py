@@ -1,9 +1,7 @@
-
-# Register your models here.
 from django.contrib import admin
 from .models import ChatMessage
 
-@admin.register(ChatMessage)
 class ChatMessageAdmin(admin.ModelAdmin):
-    list_display = ('sender', 'message', 'timestamp')
-    search_fields = ('sender', 'message')
+    list_display = ("sender", "message", "created_at")  # Reemplaza 'timestamp' por 'created_at'
+
+admin.site.register(ChatMessage, ChatMessageAdmin)

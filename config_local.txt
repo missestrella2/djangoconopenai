@@ -1,0 +1,28 @@
+Instrucciones para Windows
+===========================
+
+Crear sistema de archivos para Django:
+git clone https://github.com/missestrella2/djangoconopenai.git
+
+Crear entorno virtual:
+pip install -m venv djangoenv
+
+Dar permiso de ejecucion de scripts en Powershell:
+En una ventana de powershell: 
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+Get-ExecutionPolicy
+
+Activar entorno virtual: 
+ir a la carpeta del entorno virtual, "Scripts" y escribir
+.\Activate.ps1
+
+Instalar requeriments.txt (librerias necesarias):
+pararse en la carpeta donde esta el archivo requirements.txt:
+pip install -r requirements.txt
+
+Levantar servidor: 
+pararse en la carpeta que contenga el archivo manage.ExecutionPolicy
+python manage.py runserver
+
+
+

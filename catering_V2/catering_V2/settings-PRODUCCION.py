@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#-19ahz+obzlgcdebt%r20mrq&2ht4^m!8^e(%w%!4*6-s2da#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['cynthiavillagra.pythonanywhere.com']
+ALLOWED_HOSTS = ['cynthiavillagra.pythonanywhere.com','localhost','127.0.0.1']
 
 
 #Pruebas locales
@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'calculos',
     'api',
     'rest_framework',
+    'drf_spectacular',
+    'openapi',
+    'openai',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +61,19 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'catering_V2.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+}
+
 
 TEMPLATES = [
     {

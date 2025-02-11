@@ -1,0 +1,41 @@
+openapi: 3.1.0
+info:
+  title: API de Gestión de Ingredientes
+  version: 1.0.0
+servers:
+  - url: https://cynthiavillagra.pythonanywhere.com
+    description: Servidor de producción
+
+paths:
+  /api/ingredientes/:
+    post:
+      summary: Agregar un nuevo ingrediente
+      description: Permite agregar un ingrediente a la base de datos en Django.
+      operationId: agregarIngrediente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  description: Nombre del ingrediente
+                marca:
+                  type: string
+                  description: Marca del ingrediente
+                cantidad:
+                  type: number
+                  description: Cantidad del ingrediente
+                unidad:
+                  type: string
+                  description: Unidad de medida (g, kg, ml, etc.)
+                precio:
+                  type: number
+                  description: Precio del ingrediente
+      responses:
+        "201":
+          description: Ingrediente creado correctamente
+        "400":
+          description: Error en la solicitud
