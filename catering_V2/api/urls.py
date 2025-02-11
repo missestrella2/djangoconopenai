@@ -13,12 +13,20 @@ from .views import (
     CateringRecetaViewSet
 )
 
+
+from django.urls import path
+from .views import descargar_schema_txt
+
+
+
 # 1. Rutas "normales" que ya tenías
 urlpatterns = [
     path('chatbot/', chatbot_view, name='chatbot'),
     path('chatbot/gpt/', GPTInteractionView.as_view(), name='gpt_interaction'),
     path('openapi/', SpectacularAPIView.as_view(), name='openapi-schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='openapi-schema'), name='swagger-ui'),
+    path('schema-txt/', descargar_schema_txt, name='descargar_schema_txt'),
+
     # Si tienes más rutas personalizadas, agrégalas aquí
 ]
 

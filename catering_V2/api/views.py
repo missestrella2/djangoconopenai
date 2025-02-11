@@ -145,3 +145,15 @@ class CateringRecetaViewSet(viewsets.ModelViewSet):
     """
     queryset = CateringReceta.objects.all()
     serializer_class = CateringRecetaSerializer
+
+from django.http import FileResponse, JsonResponse
+import os
+
+def descargar_schema_txt(request):
+    """
+    Devuelve el archivo OpenAPI Schema en formato .txt
+    """
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../openapi_schema.txt")  # Ruta en la raíz
+    if os.path.exists(file_path):
+        return FileResponse(open(file_path, "rb"), content_type="text/plain")
+    return JsonResponse({"error": "Archivo no encontrado"}, status=404)

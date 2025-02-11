@@ -1,0 +1,278 @@
+openapi: 3.1.0
+info:
+  title: API de Gestión de Ingredientes y Catering
+  version: 1.0.0
+
+servers:
+  - url: https://cynthiavillagra.pythonanywhere.com
+    description: Servidor de producción
+
+paths:
+  ### INGREDIENTES ###
+  /api/ingredientes/:
+    get:
+      summary: Obtener todos los ingredientes
+      operationId: obtenerIngredientes
+      tags:
+        - Ingredientes
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Lista de ingredientes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ingrediente"
+    post:
+      summary: Crear un nuevo ingrediente
+      operationId: crearIngrediente
+      tags:
+        - Ingredientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Ingrediente"
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "201":
+          description: Ingrediente creado correctamente
+
+  /api/ingredientes/{id}/:
+    get:
+      summary: Obtener un ingrediente por ID
+      operationId: obtenerIngrediente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID del ingrediente
+      tags:
+        - Ingredientes
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Ingrediente obtenido
+    put:
+      summary: Actualizar un ingrediente
+      operationId: actualizarIngrediente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      tags:
+        - Ingredientes
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Ingrediente actualizado
+    delete:
+      summary: Eliminar un ingrediente
+      operationId: eliminarIngrediente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      tags:
+        - Ingredientes
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "204":
+          description: Ingrediente eliminado correctamente
+
+  ### RECETAS ###
+  /api/recetas/:
+    get:
+      summary: Obtener todas las recetas
+      operationId: obtenerRecetas
+      tags:
+        - Recetas
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Lista de recetas
+    post:
+      summary: Crear una nueva receta
+      operationId: crearReceta
+      tags:
+        - Recetas
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "201":
+          description: Receta creada correctamente
+
+  /api/recetas/{id}/:
+    get:
+      summary: Obtener una receta por ID
+      operationId: obtenerReceta
+      tags:
+        - Recetas
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Receta obtenida
+    put:
+      summary: Actualizar una receta
+      operationId: actualizarReceta
+      tags:
+        - Recetas
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Receta actualizada
+    delete:
+      summary: Eliminar una receta
+      operationId: eliminarReceta
+      tags:
+        - Recetas
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "204":
+          description: Receta eliminada
+
+  ### CATERING ###
+  /api/caterings/:
+    get:
+      summary: Obtener todos los caterings
+      operationId: obtenerCaterings
+      tags:
+        - Catering
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Lista de caterings
+    post:
+      summary: Crear un nuevo catering
+      operationId: crearCatering
+      tags:
+        - Catering
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "201":
+          description: Catering creado correctamente
+
+  /api/caterings/{id}/:
+    get:
+      summary: Obtener un catering por ID
+      operationId: obtenerCatering
+      tags:
+        - Catering
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Catering obtenido
+    put:
+      summary: Actualizar un catering
+      operationId: actualizarCatering
+      tags:
+        - Catering
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Catering actualizado
+    delete:
+      summary: Eliminar un catering
+      operationId: eliminarCatering
+      tags:
+        - Catering
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "204":
+          description: Catering eliminado
+
+  ### CHATBOT ###
+  /api/chatbot/gpt/:
+    post:
+      summary: Interactuar con el chatbot GPT-4
+      operationId: interactuarChatbot
+      tags:
+        - Chatbot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatbotRequest"
+      # security:  # Descomentar si se requiere autenticación con Token
+      #   - tokenAuth: []
+      responses:
+        "200":
+          description: Respuesta del chatbot
+
+components:
+  schemas:
+    Ingrediente:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        marca:
+          type: string
+          nullable: true
+        cantidad:
+          type: number
+        unidad:
+          type: string
+        precio:
+          type: number
+
+    Receta:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        porciones:
+          type: integer
+
+    Catering:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        cantidad_personas:
+          type: integer
+
+    ChatbotRequest:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token de autenticación con prefijo "Token"
