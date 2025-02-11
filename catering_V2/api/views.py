@@ -157,3 +157,12 @@ def descargar_schema_txt(request):
     if os.path.exists(file_path):
         return FileResponse(open(file_path, "rb"), content_type="text/plain")
     return JsonResponse({"error": "Archivo no encontrado"}, status=404)
+
+def descargar_prompt_txt(request):
+    """
+    Devuelve el archivo OpenAPI Schema en formato .txt
+    """
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../prompt_gpt.txt")  # Ruta en la raíz
+    if os.path.exists(file_path):
+        return FileResponse(open(file_path, "rb"), content_type="text/plain")
+    return JsonResponse({"error": "Archivo no encontrado"}, status=404)
